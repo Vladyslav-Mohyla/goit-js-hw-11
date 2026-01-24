@@ -8,7 +8,7 @@ import {
   createGallery,
   hideLoader,
   showLoader,
-} from './js/render-function';
+} from './js/render-functions';
 
 const form = document.querySelector('.form');
 const lightbox = new SimpleLightbox('.gallery a', { captionsData: 'alt' });
