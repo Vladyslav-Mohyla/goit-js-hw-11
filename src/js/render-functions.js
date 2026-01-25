@@ -1,6 +1,11 @@
 // Ця функція повинна приймати масив images, створювати HTML-розмітку для галереї, додавати її в контейнер галереї та викликати метод екземпляра SimpleLightbox refresh(). Нічого не повертає.
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+
 const galleryList = document.querySelector('.gallery');
 const loader = document.querySelector('.loader');
+const lightbox = new SimpleLightbox('.gallery a', { captionsData: 'alt' });
+
 export function createGallery(images) {
   const markup = images
     .map(
@@ -26,6 +31,7 @@ export function createGallery(images) {
     )
     .join('');
   galleryList.insertAdjacentHTML('beforeend', markup);
+  lightbox.refresh();
 }
 
 //  повинна очищати вміст контейнера галереї

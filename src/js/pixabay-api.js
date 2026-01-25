@@ -1,4 +1,5 @@
 import axios from 'axios';
+import iziToast from 'izitoast';
 
 const API_KEY = '54239914-b8bb815315f9ce22f6479101b';
 
@@ -15,5 +16,10 @@ export const getImagesByQuery = query => {
       },
     })
     .then(({ data }) => data)
-    .catch(error => console.error('Помилка:', error));
+    .catch(error =>
+      iziToast.error({
+        message: `${error}`,
+        position: 'topRight',
+      })
+    );
 };

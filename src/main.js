@@ -1,5 +1,3 @@
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import { getImagesByQuery } from './js/pixabay-api'; // импорт функции запроса на Pixabay
@@ -11,7 +9,6 @@ import {
 } from './js/render-functions';
 
 const form = document.querySelector('.form');
-const lightbox = new SimpleLightbox('.gallery a', { captionsData: 'alt' });
 
 form.addEventListener('submit', onFormSubmit);
 
@@ -24,9 +21,9 @@ function onFormSubmit(event) {
     return;
   }
   showLoader();
+  clearGallery();
   getImagesByQuery(searchValue)
     .then(({ hits }) => {
-      clearGallery();
       if (hits.length === 0) {
         iziToast.error({
           message:
@@ -38,9 +35,13 @@ function onFormSubmit(event) {
       }
 
       createGallery(hits);
-      lightbox.refresh();
     })
-    .catch()
+    .catch(error =>
+      iziToast.error({
+        message: `${error}`,
+        position: 'topRight',
+      })
+    )
     .finally(() => {
       hideLoader();
     });
